@@ -1,12 +1,12 @@
 import Axios from '../utils/http.config';
 
 export class AssessmentService {
-  static async submit(assessment) {
+  static submit(assessment) {
     try {
       // Choose the correct method, url, and data to send
       // in a request to the express packages/api/src/routes/assessment.js
       // NOTE: the http.config file automatically adds /api to the front of your url
-      const response = await Axios.post(`/assessment/submit`, { assessment });
+      const response = Axios.post(`/assessment/submit`, assessment);
       return response.data;
     }
     catch (err) {
@@ -14,12 +14,12 @@ export class AssessmentService {
     }
   }
 
-  static async getList() {
+  static getList() {
     try {
       // Choose the correct method, url, and data to send
       // in a request to the express packages/api/src/routes/assessment.js
       // NOTE: the http.config file automatically adds /api to the front of your url
-      const response = await Axios.get(`/assessment/submit`, {
+      const response = Axios.get(`/assessment/submit`, {
         params: {},
       });
       return response.data.data.assessment;
