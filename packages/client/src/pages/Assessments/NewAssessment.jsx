@@ -30,11 +30,11 @@ export const NewAssessment = () => {
 
   function riskLevel() {
     if (sum <= 1) {
-      return <span>Low</span>;
+      return `low`;
     } else if (sum >= 2 && sum <= 3) {
-      return <span>Medium</span>;
+      return `medium`;
     }
-    return <span>High</span>;
+    return `high`;
   }
 
   const onSubmit = async (data) => {
@@ -54,6 +54,7 @@ export const NewAssessment = () => {
 
   return <Form onSubmit={handleSubmit((data) => onSubmit(data))}>
     <h1>Cat Behavioral Instrument</h1>
+    <input type="hidden" {...register(`instrumentType`)} value={1} />
     <h3>Cat Details</h3>
     <Form.Group>
       <Form.Label>Cat Name</Form.Label>
@@ -99,8 +100,10 @@ export const NewAssessment = () => {
       option2="Yes"
     />
 
-    <p {...register(`score`)}>Risk Assessment: {sum}</p>
+    <p>Risk Assessment: {sum}</p>
+    <input type="hidden" {...register(`score`)} value={sum} />
     <p {...register(`riskLevel`)}>Risk Level: {riskLevel()}</p>
+    <input type="hidden" {...register(`riskLevel`)} value={riskLevel()} />
 
     <Button variant="primary" type="submit">Submit</Button>
   </Form>;
