@@ -6,14 +6,13 @@ exports.submit = async (assessment) => {
   try { const result = await Assessment.create(assessment);
     return result;
   } catch (err) {
-    throw new Error(`Error submitting assessment`);
+    throw new Error(`Error submitting assessment, ${err}`);
   }
 };
 
 exports.getList = () => {
   // use the sequelize model Assessments from packages/api/src/database/models to fetch
   // the assessment data from the PostgreSQL database
-  const assessments = [];
-
+  const assessments = Assessment.findAll();
   return assessments;
 };
