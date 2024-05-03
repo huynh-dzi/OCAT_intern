@@ -28,6 +28,8 @@ export const NewAssessment = () => {
   parseInt(hissesAtStrangers) +
   parseInt(playsWellWithDogs);
 
+  setValue(`score`, sum);
+
   function riskLevel() {
     if (sum <= 1) {
       return `low`;
@@ -36,6 +38,9 @@ export const NewAssessment = () => {
     }
     return `high`;
   }
+
+  const risk = riskLevel();
+  setValue(`riskLevel`, risk);
 
   const onSubmit = async (data) => {
     console.log(data);
@@ -102,7 +107,7 @@ export const NewAssessment = () => {
 
     <p>Risk Assessment: {sum}</p>
     <input type="hidden" {...register(`score`)} value={sum} />
-    <p {...register(`riskLevel`)}>Risk Level: {riskLevel()}</p>
+    <p>Risk Level: {riskLevel()}</p>
     <input type="hidden" {...register(`riskLevel`)} value={riskLevel()} />
 
     <Button variant="primary" type="submit">Submit</Button>

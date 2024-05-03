@@ -16,3 +16,14 @@ exports.getList = () => {
   const assessments = Assessment.findAll();
   return assessments;
 };
+
+exports.delete = async (id) => {
+  // use the sequelize model Assessments from packages/api/src/database/models to delete
+  // the assessment data from the PostgreSQL database
+  try {
+    const result = await Assessment.destroy({ where: { id } });
+    return result;
+  } catch (err) {
+    throw new Error(`Error deleting assessment, ${err}`);
+  }
+};
