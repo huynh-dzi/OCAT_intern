@@ -29,10 +29,12 @@ export class AssessmentService {
       // Choose the correct method, url, and data to send
       // in a request to the express packages/api/src/routes/assessment.js
       // NOTE: the http.config file automatically adds /api to the front of your url
-      const response = await Axios.get(`/assessment`, {
-        params: {},
-      });
-      return response.data.data.assessment;
+      return await Axios.get(`/assessment`, {
+        params: {
+          data: `assessment`,
+        },
+      })
+        .then(response => response.data.data.assessments);
     }
     catch (err) {
       throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
