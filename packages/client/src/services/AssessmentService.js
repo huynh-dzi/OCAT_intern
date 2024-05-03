@@ -40,4 +40,14 @@ export class AssessmentService {
       throw new Error(`${err.response.statusText} - ${err.response.data.message}`);
     }
   }
+
+  static async delete(id) {
+    try {
+      return await Axios.delete(`/assessment/${id}`)
+        .then(response => response.data);
+    }
+    catch (err) {
+      throw new Error(err);
+    }
+  }
 }

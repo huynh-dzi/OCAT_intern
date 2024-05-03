@@ -44,6 +44,24 @@ assessmentRouter.get(
       next(err);
     }
   },
+
+  assessmentRouter.delete(
+    `/:id`,
+    async (req, res, next) => {
+      try {
+        const { id } = req.params;
+        await AssessmentService.delete(id);
+
+        ResponseHandler(
+          res,
+          `Deleted assessment`,
+          { id },
+        );
+      } catch (err) {
+        next(err);
+      }
+    },
+  ),
 );
 
 module.exports = { assessmentRouter };

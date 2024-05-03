@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { useTable } from 'react-table';
 import Table from 'react-bootstrap/Table';
 import { AssessmentService } from '../../services/AssessmentService';
@@ -13,6 +14,12 @@ export const AssessmentList = () => {
     };
     fetchAssessments();
   }, []);
+
+  const handleDelete = async (id) => {
+    await AssessmentService.delete(id);
+    const newAssessments = assessments.filter(assessment => assessment.id !== id);
+    setAssessments(newAssessments);
+  };
 
   const columns = React.useMemo(
     () => [
@@ -35,6 +42,12 @@ export const AssessmentList = () => {
             Header: `Risk Level`,
             accessor: `riskLevel`,
           },
+          {
+            Cell: ({ value }) =>
+              <Button variant="danger" onClick={() => handleDelete(value)}>Delete</Button>,
+            Header: `Delete`,
+            accessor: `id`,
+          },
         ],
       },
     ],
@@ -48,10 +61,6 @@ export const AssessmentList = () => {
     prepareRow,
     rows,
   } = useTable({ columns, data: Array.isArray(assessments) ? assessments : [] });
-
-  if (!assessments || assessments.length === 0) {
-    return <div>Loading...</div>;
-  }
 
   return (
     <div>
